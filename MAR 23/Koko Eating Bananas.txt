@@ -1,0 +1,22 @@
+class Solution {
+public:
+    bool helper(int m,vector<int> &vec,int h){
+        int ans=0;
+        for(int i=0;i<vec.size();i++){
+            ans+=(vec[i]/m)+(vec[i]%m==0 ?0:1);
+        }
+        return ans<=h;
+    }
+    int minEatingSpeed(vector<int>& piles, int h) {
+        long int left=1,right=1000000000;
+        while(left<right){
+            long mid=left+(right-left)/2;
+            if(helper(mid,piles,h)){
+                right=mid;
+            }else{
+                left=mid+1;
+            }
+        }
+        return left;
+    }
+};
