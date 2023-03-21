@@ -1,0 +1,15 @@
+class Solution {
+public:
+    long long zeroFilledSubarray(vector<int>& nums) {
+        long long cnt=0,cnt2=0;
+
+        for(int n:nums){
+            if(n==0){
+                cnt+=++cnt2;
+            }else{
+                cnt2=0;
+            }
+        }
+        return cnt;
+    }
+};
