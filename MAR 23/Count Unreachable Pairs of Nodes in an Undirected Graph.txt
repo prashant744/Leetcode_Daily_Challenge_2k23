@@ -1,0 +1,35 @@
+class Solution {
+public:
+    void dfs(int node,long long &count,vector<bool>&visited,vector<int>adj[]){
+        visited[node]=true;
+        count++;
+
+        for(auto it:adj[node]){
+            if(!visited[it]){
+                dfs(it,count,visited,adj);
+            }
+        }
+        return ;
+    }
+
+    long long countPairs(int n, vector<vector<int>>& edges) {
+        vector<int>adj[n];
+
+        for(auto it:edges){
+            adj[it[0]].push_back(it[1]);
+            adj[it[1]].push_back(it[0]);
+        }
+        vector<bool>visited(n,false);
+        long long ans=0;
+        long long temp=0;
+        for(int i=0;i<n;i++){
+            if(!visited[i]){
+                long long count=0;
+                dfs(i,count,visited,adj);
+                ans+=(temp*count);
+                temp+=count;
+            }
+        }
+        return ans;
+    }
+};
