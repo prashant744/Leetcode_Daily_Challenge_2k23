@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<int> dp;
+    int helper(int index,int validity, vector<int>& days, vector<int>& costs) {
+        if(index>=days.size()){
+            return 0;
+        }
+        
+        if(validity >= days[index]){
+            return helper(index+1, validity, days, costs);
+        }
+
+        if(dp[index]!=-1){
+            return dp[index];
+        }
+
+        int mini = INT_MAX;
+
+        mini = min(mini, costs[0]+helper(index+1, days[index], days, costs));
+        mini = min(mini, costs[1]+helper(index+1, days[index]+6, days, costs));
+        mini = min(mini, costs[2]+helper(index+1, days[index]+29, days, costs));
+        
+        return dp[index]=mini;
+    }
+
+    int mincostTickets(vector<int>& days, vector<int>& costs) {
+        dp.resize(days.size(),-1);
+        return helper(0,0, days, costs);
+    }
+};
