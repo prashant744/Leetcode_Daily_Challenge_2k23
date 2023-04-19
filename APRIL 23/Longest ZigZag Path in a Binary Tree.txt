@@ -1,0 +1,19 @@
+class Solution {
+public:
+    void helper(TreeNode* root,int left,int right,int &ans){
+        if(!root){
+            return;
+        }
+        ans=max(ans,left);
+        ans=max(ans,right);
+        helper(root->left,0,left+1,ans);
+        helper(root->right,right+1,0,ans);
+        // return ;
+    }
+
+    int longestZigZag(TreeNode* root) {
+        int left=0,right=0,ans=0;
+        helper(root,left,right,ans);
+        return ans;
+    }
+};
