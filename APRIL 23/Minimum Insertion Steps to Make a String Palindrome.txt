@@ -1,0 +1,37 @@
+class Solution {
+public:
+    // Brute Force 
+    // int isPalindrome(string &s,int i,int j){
+    //     if(i>=j){
+    //         return 0;
+    //     }else if(s[i]==s[j]){
+    //         return isPalindrome(s,i+1,j-1);
+    //     }else{
+    //         int pos1=isPalindrome(s,i+1,j);
+    //         int pos2=isPalindrome(s,i,j-1);
+    //         return min(pos1,pos2)+1;
+    //     }
+    // }
+ 
+    // using dp 
+    int isPalindrome(string &s,int i,int j,vector<vector<int>>&dp){
+        if(i>=j)return 0;
+        else if(dp[i][j]!=-1){
+            return dp[i][j];
+        }else if(s[i]==s[j]){
+            return isPalindrome(s,i+1,j-1,dp);
+        }else{
+            int pos1=isPalindrome(s,i+1,j,dp);
+            int pos2=isPalindrome(s,i,j-1,dp);
+
+            dp[i][j]=min(pos1,pos2)+1;
+            return dp[i][j];
+        }
+    }
+
+    int minInsertions(string s) {
+        int n=s.size();
+        vector<vector<int>>dp(n,vector<int>(n,-1));
+        return isPalindrome(s,0,s.size()-1,dp);
+    }
+};
