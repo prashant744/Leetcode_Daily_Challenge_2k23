@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int MOD=1e9+7;
+    int numberOfArrays(string s, int k) {
+        int size=s.size();
+        vector<int>dp(size+1);
+        dp[size]=1;
+
+        for(int i=size-1;i>=0;i--){
+            if(s[i]=='0'){
+                continue;
+            }
+            for(long sz=1,n=0;i+sz<=size;sz++){
+                n=n*10+s[i+sz-1]-'0';
+                if(n>k){
+                    break;
+                }
+                dp[i]=(dp[i]+dp[i+sz])%MOD;
+            }
+        }
+        return dp[0];
+    }
+};
